@@ -1,0 +1,23 @@
+{{- if .Values.manifests.service }}
+{{- $envAll := . }}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ tuple "nfs" "internal" . | include "helm-toolkit.endpoints.hostname_short_endpoint_lookup" }}
+  labels:
+{{ tuple $envAll "nfs" "provisioner" | include "helm-toolkit.snippets.kubernetes_metadata_labels" | indent 4 }}
+spec:
+  ports:
+    - name: nfs
+      port: 2049
+    - name: mountd
+      port: 20048
+    - name: rpcbind
+      port: 111
+    - name: rpcbind-udp
+      port: 111
+      protocol: UDP
+  selector:
+{{ tuple $envAll "nfs" "provisioner" | include "helm-toolkit.snippets.kubernetes_metadata_labels" | indent 4 }}
+{{- end }}

@@ -1,0 +1,3 @@
+{{- if .Values.manifests.rbac_entrypoint }}
+{{ tuple . | include "helm-toolkit.snippets.kubernetes_entrypoint_rbac"}}
+{{- end }}

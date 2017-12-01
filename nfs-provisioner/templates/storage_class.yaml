@@ -1,0 +1,11 @@
+{{- if .Values.manifests.storage_class }}
+{{- $envAll := . }}
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: {{ .Values.storageclass.name }}
+provisioner: {{ .Values.storageclass.provisioner }}
+parameters:
+  mountOptions: vers=4.1
+{{- end }}

@@ -1,0 +1,11 @@
+{{- if .Values.manifests.configmap_bin }}
+{{- $envAll := . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nfs-bin
+data:
+  image-repo-sync.sh: |+
+{{- include "helm-toolkit.scripts.image_repo_sync" . | indent 4 }}
+{{- end }}
